@@ -1,0 +1,38 @@
+package com.product.Repository;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Component;
+
+import com.product.Model.Product;
+
+import jakarta.transaction.Transactional;
+
+@Component
+public class ProductRepository {
+
+	@Autowired
+	private HibernateTemplate hibernateTemplate;
+	
+	@Transactional
+	public void addProduct(Product product) {
+		this.hibernateTemplate.save(product);
+	}
+	
+	public List<Product> getAllProducts(){
+		List<Product> products = this.hibernateTemplate.loadAll(Product.class);
+		return products;
+	}
+	
+	public Product getProduct(Integer Pid) {
+		return this.hibernateTemplate.get(Product.class, Pid);
+	}
+	
+	@Transactional
+	public void deleteProduct(Integer Pid) {
+		Product p = this.hibernateTemplate.load(Product.class, Pid);
+		this.hibernateTemplate.delete(p);
+	}
+}

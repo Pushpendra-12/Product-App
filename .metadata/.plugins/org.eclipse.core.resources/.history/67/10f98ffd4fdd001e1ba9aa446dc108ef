@@ -1,0 +1,18 @@
+package com.product.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+
+@Controller
+public class ProductController {
+	
+	@RequestMapping("/add-product")
+	public String addProduct(Model m) {
+		m.addAttribute("title","Add product");
+		return "add_product_form";
+	}
+
+}
